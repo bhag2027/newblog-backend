@@ -108,6 +108,28 @@ app.post("/viewall",(req,res)=>{
 
 
 
+app.post("/viewmy",(req,res)=>{
+    let input=req.body
+    let token=req.headers.token
+    jwt.verify(token,"blogapp",(error,decoded)=>{
+        if (decoded) {
+            postmodel.find(input).then(
+                (items)=>{
+                    res.json(items)
+                }
+            ).catch(
+                (error)=>{
+                    res.json({"status":"error"})
+                }
+            )
+        } else {
+            res.json({"status":"invalid authentication"})
+        }
+    })
+})
+
+
+
 
 
 
