@@ -87,6 +87,27 @@ app.post("/add",async(req,res)=>{
 })
 
 
+app.post("/viewall",(req,res)=>{
+    let token=req.headers.token
+    jwt.verify(token,"blogapp",(error,decoded)=>{
+        if (decoded) {
+            postmodel.find().then(
+                (items)=>{
+                    res.json(items)
+                }
+            ).catch(
+                (error)=>{
+                    res.json({"status":"error"})
+                }
+            )
+        } else {
+            res.json({"status":"invalid authentication"})
+        }
+    })
+})
+
+
+
 
 
 
