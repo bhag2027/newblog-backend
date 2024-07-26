@@ -80,6 +80,7 @@ app.post("/add",async(req,res)=>{
         if (decoded) {
             let result=new postmodel(input)
             await result.save()
+            res.json({"status":"success"})
         } else {
             res.json({"status":"invalid authentication"})
         }
